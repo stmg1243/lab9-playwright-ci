@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Расчёт стоимости доставки</title>
+</head>
+<body>
+  <h1>Расчёт стоимости доставки</h1>
+
+  <label for="amount">Сумма заказа, ₸</label>
+  <input id="amount" type="number" step="any">
+
+  <label for="delivery">Тип доставки</label>
+  <select id="delivery">
+    <option value="city">По городу</option>
+    <option value="region">По области</option>
+  </select>
+
+  <button id="calc" type="button">Рассчитать</button>
+
+  <p id="error" role="alert"></p>
+  <p id="result"></p>
+
+  <script>
+    const RATES = { city: 500, region: 1500 };
+
+    document.getElementById('calc').addEventListener('click', function () {
+      const raw = document.getElementById('amount').value.trim();
+      const type = document.getElementById('delivery').value;
+      const error = document.getElementById('error');
+      const result = document.getElementById('result');
+      error.textContent = '';
+      result.textContent = '';
+
+      const value = parseFloat(raw);
+      if (raw === '' || isNaN(value) || value <= 0) {
+        error.textContent = 'Введите корректную сумму заказа';
+        return;
+      }
+
+      let cost = RATES[type];
+      if (value >= 10000) {
+        cost = 0;
+      }
+      result.textContent = 'Стоимость доставки: ' + cost + ' ₸';
+    });
+  </script>
+</body>
+</html>
