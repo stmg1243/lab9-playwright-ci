@@ -39,7 +39,7 @@
       }
 
       let cost = RATES[type];
-      if (value >= 10000) {
+      if (value > 10000) {
         cost = 0;
       }
       result.textContent = 'Стоимость доставки: ' + cost + ' ₸';
